@@ -19,7 +19,7 @@ type MyCurrencyExchange struct {
 
 func (ce *MyCurrencyExchange) FetchAllCurrencies() error {
 	resp, err := http.Get(
-		"http://cdn.jsdelivr.net/npm/fawazahmed0/currency-api@latest/v1/currencies.json")
+		"https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies.json")
 	if err != nil {
 		return err
 	}
