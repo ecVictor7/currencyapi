@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	//"github.com/ecvictor7/currencyapi/internal/currency"
-	"github.com/sigrdrifa/go-concurrency/internal/currency"
+	"github.com/ecvictor7/currencyapi/internal/currency"
+	//"github.com/sigrdrifa/go-concurrency/internal/currency"
 )
 
 func main() {

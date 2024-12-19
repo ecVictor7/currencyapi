@@ -1,4 +1,2 @@
 github.com/ecvictor7/currencyapi v0.0.0-20241218145110-fc6c1113d1d1 h1:ALXH2XicpxRJZfBIoD/Yb2akQHvaDG2V6ebkOKxTNJQ=
 github.com/ecvictor7/currencyapi v0.0.0-20241218145110-fc6c1113d1d1/go.mod h1:gi28rg+O53VDBDNRTYDdGqtWNPv18XskO9P0Idn0we0=
-github.com/sigrdrifa/go-concurrency v0.0.0-20240503113724-a9b4fc29e8fb h1:PA1YFNTVAa2+YiqFZumLiaGc3MjO7RYvgpedlh1EsG8=
-github.com/sigrdrifa/go-concurrency v0.0.0-20240503113724-a9b4fc29e8fb/go.mod h1:XQ5ZCiG2/u6YtXvsbTyuSeslYqZ3O1RQRgq9A2ITWkw=

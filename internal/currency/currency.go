@@ -71,7 +71,7 @@ func FetchCurrencyRates(currencyCode string) (map[string]float64, error) {
 	if err != nil {
 		return nil, err
 	}
-	//cpmvert to map[string]float64
+	// convert to map[string]float64
 	ratesMap := make(map[string]float64)
 	for code, rate := range ratesStruct[currencyCode].(map[string]interface{}) {
 		ratesMap[code] = float64(rate.(float64))
