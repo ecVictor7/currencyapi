@@ -19,7 +19,7 @@ func main() {
 	startTime := time.Now()
 
 	for code := range ce.Currencies {
-		rates, err := currency.FetchCcurrendyRates(code)
+		rates, err := currency.FetchCurrencyRates(code)
 		if err != nil {
 			panic(err)
 		}
