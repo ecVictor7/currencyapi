@@ -8,6 +8,21 @@ import (
 	//"github.com/sigrdrifa/go-concurrency/internal/currency"
 )
 
+func runCurrencyWorker(workerId int,
+	currencyChan <-chan currency.Currency,
+	resultChan chan<- currency.Currency) {
+	fmt.Printf("Worker %d started\n", workerId)
+	for c := range currencyChan {
+		rates, err := currency.FetchCurrencyRates(c.Code)
+		if err != nil {
+			panic(err)
+		}
+		c.Rates = rates
+		resultChan <- c
+	}
+	fmt.Printf("Worker %d stopped\n", workerId)
+}
+
 func main() {
 	ce := &currency.MyCurrencyExchange{
 		Currencies: make(map[string]currency.Currency),
@@ -17,19 +32,37 @@ func main() {
 		panic(err)
 	}
 
+	currencyChan := make(chan currency.Currency, len(ce.Currencies))
+	resultChan := make(chan currency.Currency, len(ce.Currencies))
+
+	for i := 0; i < 5; i++ {
+		go runCurrencyWorker(i, currencyChan, resultChan)
+	}
+
 	startTime := time.Now()
 
-	for code := range ce.Currencies {
-		rates, err := currency.FetchCurrencyRates(code)
-		if err != nil {
-			panic(err)
+	resultCount := 0
+
+	for _, curr := range ce.Currencies {
+		currencyChan <- curr
+	}
+
+	for {
+		if resultCount == len(ce.Currencies) {
+			fmt.Println("Closing resultChan")
+			close(currencyChan)
+			break
 		}
-		ce.Currencies[code] = currency.Currency{
-			Code:  code,
-			Name:  ce.Currencies[code].Name,
-			Rates: rates,
+		select {
+		case c := <-resultChan:
+			ce.Currencies[c.Code] = c
+			resultCount++
+		case <-time.After(3 * time.Second):
+			fmt.Println("Timeout")
+			return
 		}
 	}
+
 	endTime := time.Now()
 
 	fmt.Println("======= Results ========")

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"sync"
 )
 
 type Currency struct {
@@ -14,6 +15,7 @@ type Currency struct {
 }
 
 type MyCurrencyExchange struct {
+	sync.Mutex
 	Currencies map[string]Currency
 }
 
@@ -38,7 +40,7 @@ func (ce *MyCurrencyExchange) FetchAllCurrencies() error {
 
 	i := 0
 	for code, name := range csMap {
-		if i > 10 {
+		if i > 100 {
 			break
 		}
 		c := Currency{
